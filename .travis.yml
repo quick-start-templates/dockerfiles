@@ -1,0 +1,13 @@
+sudo: required
+
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t vim .
+        - docker tag vim kezhenxu94/vim:latest
+        - docker images
+        - docker push kezhenxu94/vim:latest
